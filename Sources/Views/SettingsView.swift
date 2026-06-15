@@ -15,7 +15,7 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 // API KEYS
-                Section("API Keys") {
+                Section(header: Text("API Keys"), footer: Text("Key được mã hóa (Fernet) khi lưu trên máy chủ. AI có key sẽ hiện ra để chọn khi chat.")) {
                     ForEach(store.providers) { p in
                         Button { keyProvider = p } label: {
                             HStack {
@@ -37,8 +37,6 @@ struct SettingsView: View {
                             }
                         }
                     }
-                } footer: {
-                    Text("Key được mã hóa (Fernet) khi lưu trên máy chủ. AI có key sẽ hiện ra để chọn khi chat.")
                 }
 
                 // SERVER
@@ -153,7 +151,6 @@ struct KeyEntryView: View {
                 }
                 if let message { Text(message).font(.footnote).foregroundStyle(.secondary) }
             }
-            .listStyle(.insetGrouped)
             .navigationTitle("Nhập API Key")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Đóng") { dismiss() } } }
