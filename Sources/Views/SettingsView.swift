@@ -15,7 +15,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 // API KEYS
-                Section("API Keys") {
+                Section(header: Text("API Keys")) {
                     ForEach(store.providers) { p in
                         Button { keyProvider = p } label: {
                             HStack {
@@ -42,7 +42,7 @@ struct SettingsView: View {
                 }
 
                 // SERVER
-                Section("Kết nối máy chủ (\(store.serverType))") {
+                Section(header: Text("Kết nối máy chủ (\(store.serverType))")) {
                     LabeledContent("URL / IP", value: store.baseURL)
                     HStack {
                         Text("Trạng thái")
@@ -57,7 +57,7 @@ struct SettingsView: View {
                 }
 
                 // ACCOUNT
-                Section("Tài khoản") {
+                Section(header: Text("Tài khoản")) {
                     LabeledContent("Tên đăng nhập", value: store.username ?? "-")
                     HStack {
                         Text("Gói")
@@ -79,7 +79,7 @@ struct SettingsView: View {
                 }
 
                 // OTHER
-                Section("Khác") {
+                Section(header: Text("Khác")) {
                     Picker("Ngôn ngữ", selection: Binding(
                         get: { store.language },
                         set: { store.setLanguage($0) })) {
