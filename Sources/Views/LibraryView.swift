@@ -145,7 +145,7 @@ struct FilesPane: View {
     }
 
     private func isRunnable(_ name: String) -> Bool {
-        let ext = name.rsplit(separator: ".", maxSplits: 1).last.map(String.init)?.lowercased() ?? ""
+        let ext = String(name.split(separator: ".").last ?? "").lowercased()
         return runnable.contains(ext)
     }
 
