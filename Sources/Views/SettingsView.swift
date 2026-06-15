@@ -13,9 +13,9 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            List {
                 // API KEYS
-                Section(header: Text("API Keys")) {
+                Section("API Keys") {
                     ForEach(store.providers) { p in
                         Button { keyProvider = p } label: {
                             HStack {
@@ -42,7 +42,7 @@ struct SettingsView: View {
                 }
 
                 // SERVER
-                Section(header: Text("Kết nối máy chủ (\(store.serverType))")) {
+                Section("Kết nối máy chủ (\(store.serverType))") {
                     LabeledContent("URL / IP", value: store.baseURL)
                     HStack {
                         Text("Trạng thái")
@@ -57,7 +57,7 @@ struct SettingsView: View {
                 }
 
                 // ACCOUNT
-                Section(header: Text("Tài khoản")) {
+                Section("Tài khoản") {
                     LabeledContent("Tên đăng nhập", value: store.username ?? "-")
                     HStack {
                         Text("Gói")
@@ -79,7 +79,7 @@ struct SettingsView: View {
                 }
 
                 // OTHER
-                Section(header: Text("Khác")) {
+                Section("Khác") {
                     Picker("Ngôn ngữ", selection: Binding(
                         get: { store.language },
                         set: { store.setLanguage($0) })) {
@@ -96,6 +96,7 @@ struct SettingsView: View {
                     Button("Đăng xuất", role: .destructive) { store.logout() }
                 }
             }
+            .listStyle(.insetGrouped)
             .navigationTitle("Cài đặt")
             .sheet(item: $keyProvider) { p in KeyEntryView(provider: p) }
             .sheet(isPresented: $showConnections) { ConnectionsView() }
@@ -128,7 +129,7 @@ struct KeyEntryView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            List {
                 Section {
                     HStack {
                         Circle().fill(providerColor(provider.id)).frame(width: 10, height: 10)
@@ -152,6 +153,7 @@ struct KeyEntryView: View {
                 }
                 if let message { Text(message).font(.footnote).foregroundStyle(.secondary) }
             }
+            .listStyle(.insetGrouped)
             .navigationTitle("Nhập API Key")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Đóng") { dismiss() } } }
